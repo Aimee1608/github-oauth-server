@@ -11,6 +11,7 @@ module.exports = {
     'comma-dangle': [2, 'never'],
     'no-console': 'off',
     'max-len': ['error', { code: 300 }],
-    'no-else-return': ['error', { allowElseIf: true }]
+    'no-else-return': ['error', { allowElseIf: true }],
+    'max-classes-per-file': ['error', 2]
   }
 };

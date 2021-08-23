@@ -19,14 +19,16 @@ class authController {
       console.log('userInfo', userInfo);
       if (userInfo) {
         const {
-          login: userId, name: username, avatar_url: avatar, email, bio, blog
+          login: userId, name: username, avatar_url: avatar, email, bio, blog, id
         } = userInfo;
         const hasUser = await User.findOneAndUpdate({
-          userId
+          githubId: id
         }, {
+          userId,
           avatar,
           blog,
           bio,
+          githubInfo: userInfo,
           lastLoginDate: Date.now()
         });
         let res;
@@ -34,19 +36,22 @@ class authController {
           res = hasUser;
         } else {
           res = await new User({
+            githubId: id,
             userId,
             username,
             avatar,
             email,
             bio,
-            blog
+            blog,
+            githubInfo: userInfo
           }).save();
         }
         console.log('res---', res);
         if (res) {
           const jwtToken = createToken({
             _id: res._id,
-            userId: res.userId
+            userId: res.userId,
+            githubId: res.githubId
           });
           setTokenCookie(ctx, jwtToken);
           ctx.redirect(config.githubOAth.redirect_uri);
@@ -62,7 +67,7 @@ class authController {
 
   static logout(ctx) {
     deleteTokenCookie(ctx);
-    ctx.data();
+    ctx.data({});
   }
 
   static async getUserInfo(ctx) {
@@ -80,7 +85,9 @@ class authController {
         userId,
         username,
         status,
-        avatar
+        avatar,
+        githubInfo,
+        githubId
       } = result;
       ctx.data({
         msg: '获取用户信息成功！',
@@ -89,7 +96,9 @@ class authController {
           userId,
           username,
           status,
-          avatar
+          avatar,
+          githubInfo,
+          githubId
         }
       });
     } else {
@@ -98,6 +107,11 @@ class authController {
         msg: '获取用户信息失败！'
       });
     }
+  }
+
+  static async getAllUser(ctx) {
+    const result = await User.find();
+    ctx.data({ data: result });
   }
 }
 

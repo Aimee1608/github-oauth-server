@@ -13,5 +13,6 @@ const user = require('../controller/user');
 router.get('/user/login', user.login);
 router.get('/user/logout', checkToken, user.logout);
 router.get('/user/getUserInfo', checkToken, user.getUserInfo);
+router.get('/user/getAllUser', user.getAllUser);
 
 module.exports = router;

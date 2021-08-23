@@ -24,7 +24,8 @@ module.exports = () => {
   // 连接数据库
   // 新版mongodb连接数据库要加{ useNewUrlParser:true }
   mongoose.connect(mongoUrl, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
 
   const db = mongoose.connection;

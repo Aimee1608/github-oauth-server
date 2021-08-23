@@ -5,8 +5,8 @@ module.exports = {
   LIMIT: 16,
   githubOAth: {
     url: 'https://github.com/login/oauth/access_token',
-    client_id: '****',
-    client_secret: '*****',
+    client_id: '7dd33c1a56813db7f797',
+    client_secret: 'de51eecf4d0b887ee9ddbe13019d664d09a6150f',
     redirect_uri: 'http://localhost:8080',
     userUrl: 'https://api.github.com/user'
   },
@@ -17,7 +17,7 @@ module.exports = {
   },
   mongo: {
     host: '127.0.0.1',
-    database: 'aimeeTest',
+    database: 'aimeeTest2',
     port: 27037,
     user: '',
     password: '',
